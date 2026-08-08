@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the associated paper."
+title: "Availability-Aware ANPR Forecasting"
+type: software
+authors:
+  - family-names: Qin
+    given-names: Hanwu
+  - family-names: Wang
+    given-names: Dianhai
+  - family-names: Zhang
+    given-names: Meng
+  - family-names: Bao
+    given-names: Shenao
+repository-code: "https://github.com/chin1hanwu/availability-aware-anpr-forecasting"
+license: MIT
+date-released: 2026-08-08

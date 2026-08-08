@@ -1,0 +1,65 @@
+protocol_version: "1.5"
+training_protocol_version: "1.4"
+output_dir: "outputs/paper_results"
+
+expected_split:
+  case_counts: {train: 79113, val: 16943, test: 16950}
+  period_counts: {train: 2010, val: 350, test: 402}
+
+seeds:
+  development: [42, 52]
+  final: [42, 52, 62, 72]
+
+training:
+  batch_size: 2048
+  stage_a:
+    max_epochs: 30
+    min_epochs: 8
+    patience: 6
+  stage_b:
+    max_epochs: 60
+    min_epochs: 15
+    patience: 10
+  min_delta: 0.0001
+
+model_grid:
+  history_lengths: [6, 12, 30]
+  learning_rates: [0.0003, 0.001]
+  weight_decays: [0.0, 0.0001]
+  snapshot_capacities:
+    - {hidden_dim: 64, num_layers: 1}
+    - {hidden_dim: 96, num_layers: 1}
+    - {hidden_dim: 64, num_layers: 2}
+  recurrent_capacities:
+    - {hidden_dim: 64, num_layers: 1}
+    - {hidden_dim: 96, num_layers: 1}
+    - {hidden_dim: 64, num_layers: 2}
+  stage_a_mixtures: 3
+  k_scan: [1, 2, 3, 4, 6, 8]
+
+gbdt:
+  max_depth: [3, 5, null]
+  learning_rate: [0.05, 0.1]
+  max_iter: [200, 500]
+  l2_regularization: [0.0, 1.0]
+  min_samples_leaf: 20
+  quantiles: [0.1, 0.5, 0.9]
+
+selection:
+  delta_cal: 0.01
+  epsilon_cal: 0.03
+
+ap01:
+  lookahead_seconds: [0, 60, 120, 300, 1800]
+
+ap06:
+  q_R: [0.10, 0.20, 0.25, 0.30, 0.40, 0.50, 0.60]
+  q_rho: [0.40, 0.50, 0.60, 0.70, 0.75, 0.80, 0.90]
+  risk_tolerances: [0.00, 0.03, 0.05]
+  nominal_coverage: 0.90
+
+ap09:
+  block_candidates: [30, 36, 48, 60]
+  validation_repeats: 2000
+  test_repeats: 5000
+  alpha: 0.05

@@ -1,0 +1,44 @@
+data:
+  plate1_path: "data/upstream_events.csv"
+  plate2_path: "data/downstream_events.csv"
+  camera_up:
+    - "UPSTREAM_CAMERA_ID"
+  camera_down:
+    - "DOWNSTREAM_CAMERA_ID"
+  delta_obs: 5
+  window_width: 30
+
+data_split:
+  train_ratio: 0.70
+  val_ratio: 0.15
+  test_ratio: 0.15
+
+model:
+  sequence_length: 30
+  hidden_dim: 96
+  num_layers: 1
+  num_mixtures: 3
+  use_attention: false
+
+training:
+  seed: 42
+  epochs: 5
+  batch_size: 128
+  learning_rate: 0.001
+  patience: 2
+
+optimization:
+  enable_hyperparameter_tuning: false
+  enable_mixture_exploration: false
+  n_trials: 5
+
+evaluation:
+  seeds: [42, 52, 62, 72]
+  k_scan: [1, 2, 4, 6, 8]
+  alpha: 0.05
+  holm_bonferroni: true
+  bootstrap_repeats: 300
+  block_length: 24
+  delta_cal: 0.01
+  epsilon_cal: 0.03
+  delta_h4: 0.05
