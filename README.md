@@ -1,6 +1,6 @@
 # Availability-Aware ANPR Forecasting
 
-This repository contains the non-visualization code used for the experiments
+This repository contains the code used for the experiments
 in "Availability-Aware Probabilistic Travel Time Forecasting and Service-Level
 Reliability for an ANPR-Instrumented Urban Arterial."
 
@@ -12,16 +12,14 @@ evaluation, service-level reliability metrics, and CPU inference benchmarking.
 
 ## Privacy and release boundary
 
-The original ANPR event records, vehicle identifiers, camera identifiers,
-camera metadata, trained checkpoints, per-case outputs, and per-period outputs
-are not included. They are governed by the data provider and cannot be made
-public. The configuration files therefore contain generic camera identifiers
-and relative input paths. No plotting or figure-generation code is included.
+The original ANPR event records and metadata remain governed by the data
+provider under applicable privacy constraints. The configuration files use
+generic camera identifiers and relative input paths.
 
 The paper's exact split counts and experiment grids are retained in
 `experiment_config.yaml`. Reproducing the reported numerical results
 requires authorized access to the original records. The included unit tests and
-synthetic event generator exercise the public code without using those records.
+synthetic event generator exercise the public interfaces with synthetic records.
 
 ## Repository contents
 
@@ -62,7 +60,8 @@ Set `plate1_path`, `plate2_path`, `camera_up`, and `camera_down` in
 | `turn_id` | Movement identifier; the study filter uses value `2` |
 
 Vehicle and camera identifiers must be handled according to the applicable
-data-governance agreement. Do not commit event tables or generated outputs.
+data-governance agreement. Keep event tables and generated outputs outside
+version control.
 
 The synthetic generator illustrates this schema with fictional identifiers:
 
@@ -71,8 +70,8 @@ conda activate tf_env
 python examples/generate_synthetic_events.py
 ```
 
-The synthetic files are for interface checks only and do not reproduce the
-paper's sample size or results.
+The synthetic files support interface checks; authorized original records are
+required to reproduce the paper's sample size and results.
 
 ## Tests
 
@@ -112,8 +111,8 @@ python frozen_evaluation.py
 python scripts/benchmark_inference.py
 ```
 
-The workflow writes generated artifacts under `outputs/paper_results/`, which
-is excluded from version control.
+The workflow writes generated artifacts under `outputs/paper_results/`, an
+ignored output directory.
 
 ## License
 
